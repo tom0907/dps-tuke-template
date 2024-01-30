@@ -19,12 +19,9 @@ jobs:
         with:
           root_file: thesis.tex
       - name: Create new release with resulting PDF
-        uses: svenstaro/upload-release-action@v2
+        uses: actions/upload-artifact@v3
         with:
-          file: thesis.pdf
-          asset_name: thesis.pdf
+          name: thesis.pdf
+          path: ./thesis.pdf
           overwrite: true
-          body: "Resulting PDF from last build of this LaTeX project ..."
-          tag: ${{ inputs.tag }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
         
