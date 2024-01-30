@@ -2,12 +2,6 @@ name: Compile PDF from LaTeX source
 
 on:
   workflow_dispatch:
-      inputs:
-        tag:
-          description: 'Tag Name'
-          required: true
-          default: 'v0.0.0'
-          type: string
 jobs:
   build_latex:
     runs-on: ubuntu-latest
@@ -19,9 +13,9 @@ jobs:
         with:
           root_file: thesis.tex
       - name: Create new release with resulting PDF
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@latest
         with:
-          name: thesis.pdf
+          name: thesis
           path: ./thesis.pdf
           overwrite: true
         
