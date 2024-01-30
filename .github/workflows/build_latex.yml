@@ -1,4 +1,4 @@
-name: Build LaTeX document from source
+name: Compile PDF from LaTeX source
 
 on:
   workflow_dispatch:
@@ -8,7 +8,13 @@ jobs:
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v2
-      - name: Compile LaTeX document
+      - name: Build LaTeX
         uses: dante-ev/latex-action@latest
         with:
           root_file: thesis.tex
+      - name: Create new release with resulting PDF
+        uses: softprops/action-gh-release@v1
+        with:
+          name: thesis.pdf
+          path: thesis.pdf
+        
