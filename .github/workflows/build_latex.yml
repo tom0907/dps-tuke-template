@@ -2,6 +2,12 @@ name: Compile PDF from LaTeX source
 
 on:
   workflow_dispatch:
+      inputs:
+        tag:
+          description: 'Tag Name'
+          required: true
+          default: 'v0.0.0'
+          type: string
 jobs:
   build_latex:
     runs-on: ubuntu-latest
@@ -13,8 +19,12 @@ jobs:
         with:
           root_file: thesis.tex
       - name: Create new release with resulting PDF
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
         with:
-          files: thesis.pdf
+          file: thesis.pdf
+          asset_name: thesis.pdf
+          overwrite: true
+          body: "Resulting PDF from last build of this LaTeX project ..."
+          tag: ${{ inputs.tag }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
         
